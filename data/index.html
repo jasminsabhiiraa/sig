@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Helps the browser identify support for mobile applications -->
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" />
+
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Title on the browser tab -->
+    <title>WebGIS</title>
+    <!-- Leaflet CSS Library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <!-- Leaflet JavaScript Library -->
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+    <!-- Style for the fullscreen map display -->
+    <style>
+      html,
+      body,
+      #map {
+        height: 100%;
+        width: 100%;
+        margin: 0px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HTML Block to display the map -->
+    <div id="map"></div>
+    <script>
+      /* Initial Map */
+      //lat, long, zoom (the initial view can be determined from Google Earth)
+      var map = L.map("map").setView([-7.9, 110.45], 10);
+
+      /* Tile Basemap */
+      var basemap0 = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '&copy; <ahref="http://www.openstreetmap.org/copyright" >OpenStreetMap</a>',
+      });
+
+      var Esri_WorldImagery = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{ x } ", {
+        attribution: "Tiles &copy; Jasmin RN &mdash; 23611020 Statistics Program Study at Universitas Islam Indonesia",
+      });
+      var OpenTopoMap = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+        maxZoom: 17,
+        attribution:
+          'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+      });
+
+      Esri_WorldImagery.addTo(map); //Calls the basemap to be displayed when the page is loaded
+
+      /Control Layer/;
+      var baseMaps = {
+        "Open Street Map": basemap0,
+        "Open Topo Map": OpenTopoMap,
+        "Esri WorldImagery": Esri_WorldImagery,
+      };
+
+      var Layers = {};
+      var layerControl = L.control.layers(baseMaps, Layers, { collapsed: false });
+      layerControl.addTo(map);
+
+      // Marker
+      var marker = L.marker([-7.804, 110.3645]); // you can change the coordinate
+      marker.bindPopup("<b>Hello ! </b> <br> Saya Marker");
+      marker.addTo(map);
+      marker.openPopup();
+      marker.bindTooltip("Hallo <br> Saya <b> Purnama </b> dan Adik saya <b> Akbar </b>");
+
+      // custom marker
+      var markerMerah = L.icon({
+        iconUrl: "https://www.freeiconspng.com/uploads/maps-icon-11.png",
+        iconSize: [40, 40],
+      });
+      var marker0 = L.marker([-7.6874832621204545, 110.41543590276083], { icon: markerMerah });
+      marker0.addTo(map);
+
+      var gunung_ireng = L.marker([-7.874420631771658, 110.48539790894719], { icon: markerMerah });
+      gunung_ireng.bindPopup("Gunung Ireng");
+      gunung_ireng.bindTooltip("Ngrancahan, Pengkok, Patuk, Gunung Kidul Regency, Special Region of Yogyakarta 55862");
+      gunung_ireng.addTo(map);
+      goa_tanding.openPopup();
+
+      var goa_tanding = L.marker([-7.9293913309839645, 110.6501237413192], { icon: markerMerah });
+      goa_tanding.bindPopup("Goa Tanding");
+      goa_tanding.bindTooltip("Gelaran 2, Seropan, Bejiharjo, Kec. Karangmojo, Kabupaten Gunung Kidul, Daerah Istimewa Yogyakarta 55891");
+      goa_tanding.addTo(map);
+      goa_tanding.openPopup();
+
+      var batara = L.marker([-7.828540023607603, 110.63027041388864], { icon: markerMerah });
+      batara.bindPopup("Batara Sriten Reservoir");
+      batara.bindTooltip("5J9M+562, Sriten, Pilangrejo, Kec. Nglipar, Kabupaten Gunung Kidul, Daerah Istimewa Yogyakarta 55852");
+      batara.addTo(map);
+      batara.openPopup();
+
+      var bukit = L.marker([-7.837167833070565, 110.47847240486087], { icon: markerMerah });
+      bukit.bindPopup("Bukit Bintang");
+      bukit.bindTooltip("Area Kebun, Srimulyo, Patuk, Gunung Kidul Regency, Special Region of Yogyakarta 55792");
+      bukit.addTo(map);
+      bukit.openPopup();
+
+      var pindul = L.marker([-7.921395078099206, 110.65001836406225], { icon: markerMerah });
+      pindul.bindPopup("Pindul Cave");
+      pindul.bindTooltip("Jalan Goa Pindul Gelaran 2, RT.3/RW.16, Bejiharjo, Kec. Karangmojo, Kabupaten Gunung Kidul, Daerah Istimewa Yogyakarta 55813");
+      pindul.addTo(map);
+      pindul.openPopup();
+
+      var goa_rancang = L.marker([-7.944869456144496, 110.49272619583309], { icon: markerMerah });
+      goa_rancang.bindPopup("Goa Rancang Kencono");
+      goa_rancang.bindTooltip("Mungguran II, Bleberan, Playen, Gunung Kidul Regency, Special Region of Yogyakarta 55861");
+      goa_rancang.addTo(map);
+      goa_rancang.openPopup();
+
+      var green = L.marker([-7.802379590785911, 110.61557099583307], { icon: markerMerah });
+      green.bindPopup("Green Village Gedangsari");
+      green.bindTooltip("Guyangan Lor, Mertelu, Gedang Sari, Gunung Kidul Regency, Special Region of Yogyakarta 55863");
+      green.addTo(map);
+      green.openPopup();
+
+      var jomblang = L.marker([-8.019827142855428, 110.63592743663169], { icon: markerMerah });
+      jomblang.bindPopup("Jomblang Cave");
+      jomblang.bindTooltip("Jetis, Pacarejo, Semanu, Gunung Kidul Regency, Special Region of Yogyakarta 55893");
+      jomblang.addTo(map);
+      jomblang.openPopup();
+
+      var watu = L.marker([-7.9649623122758175, 110.4371241413192], { icon: markerMerah });
+      watu.bindPopup("Geoforest Watu Payung Turunan");
+      watu.bindTooltip("Turunan, Girisuko, Panggang, Gunung Kidul Regency, Special Region of Yogyakarta 55872");
+      watu.addTo(map);
+      watu.openPopup();
+
+      var air_terjun = L.marker([-7.9444140037211985, 110.49313971857613], { icon: markerMerah });
+      air_terjun.bindPopup("Wisata Air Terjun Sri Gethuk");
+      air_terjun.bindTooltip("Jl. Air Terjun Sri Gethuk, Mungguran II, Bleberan, Kec. Playen, Kabupaten Gunung Kidul, Daerah Istimewa Yogyakarta 55816");
+      air_terjun.addTo(map);
+      air_terjun.openPopup();
+    </script>
+     
+  </body>
+</html>
